@@ -11,6 +11,7 @@ import Blog from "./pages/Blog/Blog";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import ToyDetails from "./pages/Toydetails/ToyDetails";
+import FourOfFour from "./pages/FourOfFour";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,11 @@ const router = createBrowserRouter([
         element: <ToyDetails></ToyDetails>,
       },
     ],
+  },
+
+  {
+    path: "*",
+    element: <FourOfFour></FourOfFour>,
   },
 ]);
 
