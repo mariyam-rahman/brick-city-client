@@ -1,15 +1,17 @@
-const Footer = () => {
+import { Footer } from "flowbite-react";
+
+const Footerr = () => {
   return (
     <div>
       <Footer container={true}>
-        <div className="w-full">
+        <div className="w-full bg-amber-400">
           <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
             <div>
               <Footer.Brand
-                href="https://flowbite.com"
-                src="https://flowbite.com/docs/images/logo.svg"
+                href="http://localhost:5173/"
+                src="/public/assets/logo3.png"
                 alt="Flowbite Logo"
-                name="Flowbite"
+                name="Brick City"
               />
             </div>
             <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
@@ -40,11 +42,7 @@ const Footer = () => {
           <div className="w-full sm:flex sm:items-center sm:justify-between">
             <Footer.Copyright href="#" by="Flowbite™" year={2022} />
             <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
-              <Footer.Icon href="#" icon={BsFacebook} />
-              <Footer.Icon href="#" icon={BsInstagram} />
-              <Footer.Icon href="#" icon={BsTwitter} />
-              <Footer.Icon href="#" icon={BsGithub} />
-              <Footer.Icon href="#" icon={BsDribbble} />
+              social icon should be here
             </div>
           </div>
         </div>
@@ -53,4 +51,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default Footerr;

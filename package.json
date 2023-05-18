@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",
+    "bootstrap-icons": "^1.10.5",
     "firebase": "^9.22.0",
     "flowbite": "^1.6.5",
     "flowbite-react": "^0.4.4",
