@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Main from "../src/Layout/Main";
@@ -12,6 +13,7 @@ import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import ToyDetails from "./pages/Toydetails/ToyDetails";
 import FourOfFour from "./pages/FourOfFour";
+import AuthProvider from "./providers/AuthProvider";
 
 const router = createBrowserRouter([
   {
@@ -62,7 +64,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <div className="container mx-auto">
     <React.StrictMode>
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </React.StrictMode>
   </div>
 );
