@@ -2,9 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import ToyItem from "./ToyItem";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
-// import UpdateModal from "./UpdateModal";
-import { Document } from "postcss";
-
 import Swal from "sweetalert2";
 import UpdateModal from "./UpdateModal";
 
@@ -18,7 +15,33 @@ const MyToys = () => {
 
   const navigate = useNavigate();
 
-  console.log(toys);
+  const updateProduct = async (id, updatedData) => {
+    const res = await fetch(`http://localhost:5000/product/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(updatedData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await res.json();
+    console.log(data);
+
+    Swal.fire({
+      icon: "success",
+      title: "Update Successful",
+      text: "Toy updated successfully!",
+    });
+
+    const newToys = toys.map((e) => {
+      if (e._id === id) {
+        return { ...e, ...updatedData };
+      } else {
+        return e;
+      }
+    });
+    setToys(newToys);
+  };
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -35,8 +58,6 @@ const MyToys = () => {
           const res = await fetch(`http://localhost:5000/product/${id}`, {
             method: "DELETE",
           });
-
-          console.log(res);
 
           const data = await res.json();
 
@@ -55,6 +76,7 @@ const MyToys = () => {
       }
     });
   };
+
   useEffect(() => {
     if (!user) {
       navigate("/login", { state: { redirectTo: `/my-toys` } });
@@ -117,15 +139,9 @@ const MyToys = () => {
                         setShowUpdateModal(true);
                       }}
                       onDelete={() => handleDelete(toy._id)}
+                      updateProduct={updateProduct}
                     ></ToyItem>
                   ))}
-
-                  <UpdateModal
-                    show={showUpdateModal}
-                    onClose={() => {
-                      setShowUpdateModal(false);
-                    }}
-                  ></UpdateModal>
                 </tbody>
               </table>
             </div>

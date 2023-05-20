@@ -4,7 +4,7 @@ import { Modal } from "flowbite-react";
 const DetailsModal = ({ show, onClose, onClick, toy }) => {
   return (
     <Modal show={show} onClose={onClose}>
-      <Modal.Header>Terms of Service</Modal.Header>
+      <Modal.Header>LEGO {toy.name}</Modal.Header>
       <Modal.Body>
         <section className="bg-white dark:bg-gray-900">
           <div className=" px-4 mx-auto max-w-2xl  border-2 border-neutral-300-600">

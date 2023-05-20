@@ -1,11 +1,22 @@
 import DetailsModal from "./DetailsModal";
 import { useState } from "react";
+import UpdateModal from "./UpdateModal";
 
-const ToyItem = ({ toy, onClickUpdate, onDelete }) => {
-  const { name, price, stock, description, imageUrl, sellerEmail, sellerName } =
-    toy;
+const ToyItem = ({ toy, onDelete, updateProduct }) => {
+  const {
+    name,
+    price,
+    stock,
+    rating,
+    description,
+    imageUrl,
+    sellerEmail,
+    sellerName,
+    category,
+  } = toy;
 
   const [viewDetails, setViewDetails] = useState(false);
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
 
   return (
     <tr className="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
@@ -16,7 +27,11 @@ const ToyItem = ({ toy, onClickUpdate, onDelete }) => {
       >
         <div className="flex items-center mr-3">
           <img
-            src="https://flowbite.s3.amazonaws.com/blocks/application-ui/products/imac-front-image.png"
+            style={{ borderRadius: "3px" }}
+            src={
+              imageUrl ||
+              "https://thumbs.dreamstime.com/z/no-image-available-icon-flat-vector-illustration-132483587.jpg"
+            }
             alt="iMac Front Image"
             className="h-8 w-auto mr-3"
           />
@@ -25,25 +40,28 @@ const ToyItem = ({ toy, onClickUpdate, onDelete }) => {
       </th>
       <td className="px-4 py-3">
         <span className="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
-          Desktop PC
+          {category}
         </span>
       </td>
       <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
         <div className="flex items-center">
           <div className="h-4 w-4 rounded-full inline-block mr-2 bg-red-700" />
-          {/* {quantity} */}
-          {price}
+          {stock}
         </div>
       </td>
 
       <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
         <div className="flex items-center">
-          <span className="text-gray-500 dark:text-gray-400 ml-1">5.0</span>
+          <span className="text-gray-500 dark:text-gray-400 ml-1">
+            {rating}
+          </span>
         </div>
       </td>
 
       <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-        <div className="flex items-center">{/* {price} */}$ 95</div>
+        <div className="flex items-center">
+          {/* {price} */}$ {price}
+        </div>
       </td>
       {/* Update Btn */}
       <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -54,7 +72,7 @@ const ToyItem = ({ toy, onClickUpdate, onDelete }) => {
             data-drawer-show="drawer-update-product"
             aria-controls="drawer-update-product"
             className="py-2 px-3 flex items-center text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-            onClick={onClickUpdate}
+            onClick={() => setShowUpdateModal(true)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -129,6 +147,15 @@ const ToyItem = ({ toy, onClickUpdate, onDelete }) => {
         }}
         toy={toy}
       ></DetailsModal>
+
+      <UpdateModal
+        show={showUpdateModal}
+        onClose={() => {
+          setShowUpdateModal(false);
+        }}
+        toy={toy}
+        updateProduct={updateProduct}
+      ></UpdateModal>
     </tr>
   );
 };

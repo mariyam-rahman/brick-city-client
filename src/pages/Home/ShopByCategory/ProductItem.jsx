@@ -23,7 +23,7 @@ const ProductItem = ({ product }) => {
 
         <div className="flex items-center mt-2.5 mb-5">
           <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
-            5.0
+            {product.rating}
           </span>
         </div>
         <div className="flex items-center justify-between">
