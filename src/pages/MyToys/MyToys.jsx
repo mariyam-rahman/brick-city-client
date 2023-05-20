@@ -2,6 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import ToyItem from "./ToyItem";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
+// import UpdateModal from "./UpdateModal";
+import { Document } from "postcss";
+
+import Swal from "sweetalert2";
 import UpdateModal from "./UpdateModal";
 
 const MyToys = () => {
@@ -10,17 +14,52 @@ const MyToys = () => {
 
   const [showUpdateModal, setShowUpdateModal] = useState(false);
 
-  const [selectedToy, setSelectedToy] = useState(false);
+  // const [selectedToy, setSelectedToy] = useState(false);
 
   const navigate = useNavigate();
 
+  console.log(toys);
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ok, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const res = await fetch(`http://localhost:5000/product/${id}`, {
+            method: "DELETE",
+          });
+
+          console.log(res);
+
+          const data = await res.json();
+
+          if (data.deletedCount === 1) {
+            Swal.fire("Deleted!", "Your Toy has been deleted.", "success");
+
+            setToys(toys.filter((t) => t._id !== id));
+          } else {
+            Swal.fire("Not Success", "error");
+            throw new Error("Failed to delete the toy.");
+          }
+        } catch (error) {
+          console.log(error);
+          Swal.fire("Error", error.message, "error");
+        }
+      }
+    });
+  };
   useEffect(() => {
     if (!user) {
       navigate("/login", { state: { redirectTo: `/my-toys` } });
     }
-  }, []);
-
-  console.log(toys);
+  }, [user, navigate]);
 
   useEffect(() => {
     fetch(`http://localhost:5000/products?sellerEmail=${user.email}`, {
@@ -77,8 +116,10 @@ const MyToys = () => {
                       onClickUpdate={() => {
                         setShowUpdateModal(true);
                       }}
+                      onDelete={() => handleDelete(toy._id)}
                     ></ToyItem>
                   ))}
+
                   <UpdateModal
                     show={showUpdateModal}
                     onClose={() => {

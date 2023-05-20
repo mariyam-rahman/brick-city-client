@@ -1,6 +1,12 @@
-const ToyItem = ({ toy, onClickUpdate }) => {
+import DetailsModal from "./DetailsModal";
+import { useState } from "react";
+
+const ToyItem = ({ toy, onClickUpdate, onDelete }) => {
   const { name, price, stock, description, imageUrl, sellerEmail, sellerName } =
     toy;
+
+  const [viewDetails, setViewDetails] = useState(false);
+
   return (
     <tr className="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
       <td className="p-4 w-4"></td>
@@ -74,6 +80,7 @@ const ToyItem = ({ toy, onClickUpdate }) => {
             data-drawer-show="drawer-read-product-advanced"
             aria-controls="drawer-read-product-advanced"
             className="py-2 px-3 flex items-center text-sm font-medium text-center text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+            onClick={() => setViewDetails(true)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -96,6 +103,7 @@ const ToyItem = ({ toy, onClickUpdate }) => {
             data-modal-target="delete-modal"
             data-modal-toggle="delete-modal"
             className="flex items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+            onClick={onDelete}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -114,6 +122,13 @@ const ToyItem = ({ toy, onClickUpdate }) => {
           </button>
         </div>
       </td>
+      <DetailsModal
+        show={viewDetails}
+        onClose={() => {
+          setViewDetails(false);
+        }}
+        toy={toy}
+      ></DetailsModal>
     </tr>
   );
 };
