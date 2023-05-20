@@ -6,7 +6,10 @@ const ProductItem = ({ product }) => {
       <a href="#">
         <img
           className="p-8 rounded-t-lg"
-          src="https://thumbs.dreamstime.com/z/no-image-available-icon-flat-vector-illustration-132483587.jpg"
+          src={
+            product.imageUrl ||
+            "https://thumbs.dreamstime.com/z/no-image-available-icon-flat-vector-illustration-132483587.jpg"
+          }
           alt="product image"
           style={{ aspectRatio: "1", objectFit: "cover" }}
         />

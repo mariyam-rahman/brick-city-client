@@ -42,7 +42,6 @@ const AllToys = () => {
 
   return (
     <div>
-      <h2>this is toy details </h2>
       <div>
         {/* Start block */}
         <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
@@ -71,9 +70,18 @@ const AllToys = () => {
                       <th scope="col" className="px-4 py-3">
                         Price
                       </th>
+                      <th scope="col" className="px-4 py-3">
+                        Stock
+                      </th>
+                      <th scope="col" className="px-4 py-3">
+                        Seller
+                      </th>
 
                       <th scope="col" className="px-4 py-3">
                         Description
+                      </th>
+                      <th scope="col" className="px-4 py-3">
+                        Action
                       </th>
                     </tr>
                   </thead>

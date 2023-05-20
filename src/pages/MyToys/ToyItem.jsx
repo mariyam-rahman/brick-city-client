@@ -32,7 +32,7 @@ const ToyItem = ({ toy, onClickUpdate, onDelete }) => {
         <div className="flex items-center">
           <div className="h-4 w-4 rounded-full inline-block mr-2 bg-red-700" />
           {/* {quantity} */}
-          95
+          {price}
         </div>
       </td>
 
