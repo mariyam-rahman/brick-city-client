@@ -1,7 +1,7 @@
 import React from "react";
 
 const ToyItem = ({ toy }) => {
-  console.log({ toy });
+  // console.log({ toy });
   return (
     <tr className="border-b dark:border-gray-700">
       <th
@@ -16,7 +16,7 @@ const ToyItem = ({ toy }) => {
         What is a product description? A product description describes a
         product.
       </td>
-      <td className="px-4 py-3">$2999</td>
+      <td className="px-4 py-3">{toy?.price}</td>
       <td className="px-4 py-3 flex items-center justify-end">
         <button
           id="apple-imac-27-dropdown-button"

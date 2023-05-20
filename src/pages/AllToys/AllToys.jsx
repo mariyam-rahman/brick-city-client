@@ -5,8 +5,13 @@ import Pagination from "./Pagination";
 import Filter from "./Filter";
 const AllToys = () => {
   const [allToys, setAllToys] = useState([]);
+
+  const [searchText, setSearchText] = useState("");
+  const [searchedToys, setSearchedToys] = useState(allToys);
+  const [selectedOrder, setSelectedOrder] = useState(null);
+
   useEffect(() => {
-    fetch(`http://localhost:5000/products?`, {
+    fetch(`http://localhost:5000/products?order=${selectedOrder}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -17,10 +22,7 @@ const AllToys = () => {
         console.log(data);
         setAllToys(data);
       });
-  }, []);
-
-  const [searchText, setSearchText] = useState("");
-  const [searchedToys, setSearchedToys] = useState(allToys);
+  }, [selectedOrder]);
 
   useEffect(() => {
     if (!searchText || searchText == "") {
@@ -29,7 +31,7 @@ const AllToys = () => {
       const result = allToys.filter((toy) => toy.name.includes(searchText));
       setSearchedToys(result);
     }
-  }, [searchText, allToys]);
+  }, [searchText, allToys, selectedOrder]);
 
   return (
     <div>
@@ -44,6 +46,9 @@ const AllToys = () => {
                 searchText={searchText}
                 handleSearch={(text) => {
                   setSearchText(text);
+                }}
+                onSelectOrder={(order) => {
+                  setSelectedOrder(order);
                 }}
               />
               <div className="overflow-x-auto">

@@ -1,10 +1,12 @@
 import { Button, Navbar } from "flowbite-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
+
   return (
     <Navbar fluid={true} rounded={true}>
-      <Navbar.Brand href="http://localhost:5173/">
+      <Navbar.Brand onClick={() => navigate("/")} style={{ cursor: "pointer" }}>
         <img
           src="/public/assets/logo3.png"
           className="mr-3 h-6 sm:h-9"
