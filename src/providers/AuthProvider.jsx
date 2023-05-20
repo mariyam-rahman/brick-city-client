@@ -31,6 +31,8 @@ const AuthProvider = ({ children }) => {
       return res;
     });
 
+    localStorage.setItem("user", JSON.stringify(res.user));
+
     setUser(res.user);
     setLoading(false);
   };
@@ -39,6 +41,7 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     signInWithEmailAndPassword(auth, email, password)
       .then((res) => {
+        localStorage.setItem("user", JSON.stringify(res.user));
         setUser(res.user);
         setLoading(false);
       })
@@ -47,8 +50,10 @@ const AuthProvider = ({ children }) => {
       });
   };
 
-  const logOut = () => {
+  const logout = () => {
     setLoading(true);
+    setUser(null);
+    localStorage.removeItem("user");
     return signOut(auth);
   };
 
@@ -61,6 +66,17 @@ const AuthProvider = ({ children }) => {
     // return () => {
     //   return unsubscribe();
     // };
+    try {
+      const json = localStorage.getItem("user");
+      if (json) {
+        const userDataFromLocalStorage = JSON.parse(json);
+        if (userDataFromLocalStorage) {
+          setUser(userDataFromLocalStorage);
+        }
+      }
+    } catch (ex) {
+      console.log("");
+    }
   }, []);
 
   const authInfo = {
@@ -68,7 +84,7 @@ const AuthProvider = ({ children }) => {
     loading,
     createUser,
     signIn,
-    logOut,
+    logout,
   };
 
   return (

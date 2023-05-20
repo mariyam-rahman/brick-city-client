@@ -1,9 +1,10 @@
 import { Button, Navbar } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
-
+import { AuthContext } from "../providers/AuthProvider";
+import { useContext, useEffect } from "react";
 const Header = () => {
   const navigate = useNavigate();
-
+  const { signIn, user, logout } = useContext(AuthContext);
   return (
     <Navbar fluid={true} rounded={true}>
       <Navbar.Brand onClick={() => navigate("/")} style={{ cursor: "pointer" }}>
@@ -17,9 +18,13 @@ const Header = () => {
         </span>
       </Navbar.Brand>
       <div className="flex md:order-2">
-        <Link to={"/login"}>
-          <Button>Login</Button>
-        </Link>
+        {user ? (
+          <Button onClick={logout}>Logout</Button>
+        ) : (
+          <Link to={"/login"}>
+            <Button>Login</Button>
+          </Link>
+        )}
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse>
