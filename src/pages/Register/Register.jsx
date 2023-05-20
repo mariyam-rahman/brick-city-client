@@ -1,10 +1,12 @@
-import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const Register = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, user } = useContext(AuthContext);
 
+  const navigate = useNavigate();
+  const location = useLocation();
   const handleSignIn = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -13,13 +15,14 @@ const Register = () => {
     const password = form.password.value;
     console.log(name, email, password);
 
-    createUser(email, password)
-      .then((result) => {
-        const user = result.user;
-        console.log(user);
-      })
-      .catch((error) => console.log(error));
+    createUser(email, password);
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate(location.state?.redirectTo || "/");
+    }
+  }, [user]);
 
   return (
     <div>

@@ -1,15 +1,25 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../providers/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const AddToys = () => {
   const { user } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login", { state: { redirectTo: `/add-toys` } });
+    }
+  }, []);
+
   const handleAddProduct = (event) => {
     event.preventDefault();
     const form = event.target;
     const name = form.name.value;
-    const sellerName = user?.name;
-    const email = user?.email;
+    const sellerName = form.sellerName.value;
+    const sellerEmail = form.sellerEmail.value;
     const ratings = form.ratings.value;
     const description = form.description.value;
     const price = form.price.value;
@@ -19,7 +29,7 @@ const AddToys = () => {
     const toyForm = {
       name,
       sellerName,
-      email,
+      sellerEmail,
       ratings,
       description,
       price,

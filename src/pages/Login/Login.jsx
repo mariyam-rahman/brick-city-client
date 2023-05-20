@@ -1,24 +1,26 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const Login = () => {
-  const { signIn } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { signIn, user } = useContext(AuthContext);
   const handleLogin = (event) => {
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
     console.log(email, password);
-    signIn(email, password)
-      .then((result) => {
-        const user = result.user;
-        console.log(user);
-      })
-      .catch((error) => console.log(error));
+    signIn(email, password);
   };
 
+  useEffect(() => {
+    if (user) {
+      navigate(location.state?.redirectTo || "/");
+    }
+  }, [user]);
   return (
     <div>
       <section className="bg-gray-50 dark:bg-gray-900 ">
@@ -107,11 +109,18 @@ const Login = () => {
                 </button>
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Don’t have an account yet?{" "}
-                  <Link to={"/register"}>
+                  <button
+                    onClick={() => {
+                      // e.preventDefault();
+                      navigate("/register", {
+                        state: { redirectTo: location?.state?.redirectTo },
+                      });
+                    }}
+                  >
                     <a className="font-medium text-primary-600 hover:underline dark:text-primary-500">
                       Sign up
                     </a>
-                  </Link>
+                  </button>
                 </p>
               </form>
             </div>
