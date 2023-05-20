@@ -1,4 +1,4 @@
-const ToyItem = ({ toy }) => {
+const ToyItem = ({ toy, onClickUpdate }) => {
   const { name, price, stock, description, imageUrl, sellerEmail, sellerName } =
     toy;
   return (
@@ -48,6 +48,7 @@ const ToyItem = ({ toy }) => {
             data-drawer-show="drawer-update-product"
             aria-controls="drawer-update-product"
             className="py-2 px-3 flex items-center text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+            onClick={onClickUpdate}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

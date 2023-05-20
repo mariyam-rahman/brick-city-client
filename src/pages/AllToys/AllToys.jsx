@@ -29,7 +29,7 @@ const AllToys = () => {
       const result = allToys.filter((toy) => toy.name.includes(searchText));
       setSearchedToys(result);
     }
-  }, [searchText]);
+  }, [searchText, allToys]);
 
   return (
     <div>

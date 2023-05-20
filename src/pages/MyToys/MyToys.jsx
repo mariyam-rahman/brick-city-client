@@ -2,10 +2,15 @@ import { useContext, useEffect, useState } from "react";
 import ToyItem from "./ToyItem";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import UpdateModal from "./UpdateModal";
 
 const MyToys = () => {
   const [toys, setToys] = useState([]);
   const { user } = useContext(AuthContext);
+
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+
+  const [selectedToy, setSelectedToy] = useState(false);
 
   const navigate = useNavigate();
 
@@ -66,8 +71,20 @@ const MyToys = () => {
                 </thead>
                 <tbody>
                   {toys.map((toy) => (
-                    <ToyItem key={toy._id} toy={toy}></ToyItem>
+                    <ToyItem
+                      key={toy._id}
+                      toy={toy}
+                      onClickUpdate={() => {
+                        setShowUpdateModal(true);
+                      }}
+                    ></ToyItem>
                   ))}
+                  <UpdateModal
+                    show={showUpdateModal}
+                    onClose={() => {
+                      setShowUpdateModal(false);
+                    }}
+                  ></UpdateModal>
                 </tbody>
               </table>
             </div>
