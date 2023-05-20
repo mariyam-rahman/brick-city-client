@@ -10,25 +10,32 @@ const AllToys = () => {
   const [searchedToys, setSearchedToys] = useState(allToys);
   const [selectedOrder, setSelectedOrder] = useState(null);
 
+  const [currentPage, setCurrenPage] = useState(1);
+
   useEffect(() => {
-    fetch(`http://localhost:5000/products?order=${selectedOrder}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    fetch(
+      `http://localhost:5000/products?order=${selectedOrder}&page=${currentPage}&per_page=${10}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
         setAllToys(data);
       });
-  }, [selectedOrder]);
+  }, [selectedOrder, currentPage]);
 
   useEffect(() => {
     if (!searchText || searchText == "") {
       setSearchedToys(allToys);
     } else {
-      const result = allToys.filter((toy) => toy.name.includes(searchText));
+      const result = allToys.filter((toy) =>
+        toy.name.toLowerCase().includes(searchText.toLowerCase())
+      );
       setSearchedToys(result);
     }
   }, [searchText, allToys, selectedOrder]);
@@ -62,16 +69,11 @@ const AllToys = () => {
                         Category
                       </th>
                       <th scope="col" className="px-4 py-3">
-                        Brand
-                      </th>
-                      <th scope="col" className="px-4 py-3">
-                        Description
-                      </th>
-                      <th scope="col" className="px-4 py-3">
                         Price
                       </th>
+
                       <th scope="col" className="px-4 py-3">
-                        <span className="sr-only">Actions</span>
+                        Description
                       </th>
                     </tr>
                   </thead>
@@ -82,7 +84,10 @@ const AllToys = () => {
                   </tbody>
                 </table>
               </div>
-              <Pagination />
+              <Pagination
+                currentPage={currentPage}
+                changePage={setCurrenPage}
+              />
             </div>
           </div>
         </section>

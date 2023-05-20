@@ -1,6 +1,12 @@
 import React from "react";
-
-const Filter = ({ searchText, handleSearch, onSelectOrder }) => {
+import Pagination from "./Pagination";
+const Filter = ({
+  searchText,
+  handleSearch,
+  onSelectOrder,
+  // currentPage,
+  // changePage,
+}) => {
   return (
     <div className="bg-white dark:bg-gray-800 relative   overflow-hidden ">
       <div className="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700 ">
@@ -39,6 +45,7 @@ const Filter = ({ searchText, handleSearch, onSelectOrder }) => {
             </div>
           </form>
         </div>
+        {/* <Pagination currentPage={currentPage} changePage={changePage} /> */}
         <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
           <select
             id="category"

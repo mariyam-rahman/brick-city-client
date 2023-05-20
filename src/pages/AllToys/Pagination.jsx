@@ -1,6 +1,6 @@
 import React from "react";
 
-const Pagination = () => {
+const Pagination = ({ currentPage, changePage }) => {
   return (
     <nav
       className="flex flex-col md:flex-row justify-end items-start md:items-center space-y-3 md:space-y-0 p-4"
@@ -8,8 +8,9 @@ const Pagination = () => {
     >
       <ul className="inline-flex items-stretch -space-x-px">
         <li>
-          <a
-            href="#"
+          <button
+            onClick={() => changePage(currentPage - 1)}
+            disabled={currentPage <= 1}
             className="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
           >
             <span className="sr-only">Previous</span>
@@ -26,52 +27,19 @@ const Pagination = () => {
                 clipRule="evenodd"
               />
             </svg>
-          </a>
+          </button>
         </li>
         <li>
           <a
             href="#"
             className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
           >
-            1
+            {currentPage}
           </a>
         </li>
         <li>
-          <a
-            href="#"
-            className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-          >
-            2
-          </a>
-        </li>
-        <li>
-          <a
-            href="#"
-            aria-current="page"
-            className="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-primary-600 bg-primary-50 border border-primary-300 hover:bg-primary-100 hover:text-primary-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-          >
-            3
-          </a>
-        </li>
-        <li>
-          <a
-            href="#"
-            className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-          >
-            ...
-          </a>
-        </li>
-        <li>
-          <a
-            href="#"
-            className="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-          >
-            100
-          </a>
-        </li>
-        <li>
-          <a
-            href="#"
+          <button
+            onClick={() => changePage(currentPage + 1)}
             className="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
           >
             <span className="sr-only">Next</span>
@@ -88,7 +56,7 @@ const Pagination = () => {
                 clipRule="evenodd"
               />
             </svg>
-          </a>
+          </button>
         </li>
       </ul>
     </nav>
