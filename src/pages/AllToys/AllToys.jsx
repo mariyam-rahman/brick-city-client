@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import ToyItem from "./ToyItem";
 import Pagination from "./Pagination";
 import Filter from "./Filter";
+import Swal from "sweetalert2";
 const AllToys = () => {
   const [allToys, setAllToys] = useState([]);
 
@@ -26,6 +27,13 @@ const AllToys = () => {
       .then((data) => {
         console.log(data);
         setAllToys(data);
+      })
+      .catch(() => {
+        Swal.fire({
+          icon: "error",
+          title: "Opps...",
+          text: "Check Your Connection and Retry!",
+        });
       });
   }, [selectedOrder, currentPage]);
 
@@ -74,7 +82,7 @@ const AllToys = () => {
                         Stock
                       </th>
                       <th scope="col" className="px-4 py-3">
-                        Seller
+                        Seller Name
                       </th>
 
                       <th scope="col" className="px-4 py-3">

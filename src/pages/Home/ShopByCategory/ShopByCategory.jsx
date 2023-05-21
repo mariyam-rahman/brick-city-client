@@ -16,10 +16,16 @@ const ShopByCategory = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log({ data });
         setAllCategories(getCategories(data));
         setProducts(data);
+      })
+      .catch((err) => {
+        console.error(err);
       });
   }, []);
+
+  console.log({ products });
 
   return (
     <div className="my-24">
@@ -28,11 +34,15 @@ const ShopByCategory = () => {
         {allCategories.map((cat) => {
           return (
             <Tabs.Item key={cat} title={cat}>
-              {products
-                .filter((p) => p.category == cat)
-                .map((e) => (
-                  <ProductItem key={e._id} product={e} />
-                ))}
+              <div className="grid-cols-3 grid gap-5">
+                {products
+                  .filter((p) => p.category == cat)
+                  .map((e) => (
+                    <div className="flex-1 items-stretch">
+                      <ProductItem key={e.id} product={e} />
+                    </div>
+                  ))}
+              </div>
             </Tabs.Item>
           );
         })}

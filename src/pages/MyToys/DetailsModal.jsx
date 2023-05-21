@@ -1,7 +1,15 @@
 import { Button } from "flowbite-react";
 import { Modal } from "flowbite-react";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const DetailsModal = ({ show, onClose, onClick, toy }) => {
+const DetailsModal = ({ show, onClose, toy }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // const handleLoginRedirect = () => {
+  //   onClose();
+  //   navigate("/login", { state: { redirectTo: location.pathname } });
+  // };
   return (
     <Modal show={show} onClose={onClose}>
       <Modal.Header>LEGO {toy.name}</Modal.Header>
@@ -63,6 +71,10 @@ const DetailsModal = ({ show, onClose, onClick, toy }) => {
           </div>
         </section>
       </Modal.Body>
+
+      {/* <Modal.Footer>
+        <Button onClick={handleLoginRedirect}>Login to View Details</Button>
+      </Modal.Footer> */}
       {/* <Modal.Footer>
         <Button onClick={onClick}>I accept</Button>
         <Button color="gray" onClick={onClick}>

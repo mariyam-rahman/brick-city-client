@@ -84,7 +84,7 @@ const MyToys = () => {
   }, [user, navigate]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/products?sellerEmail=${user.email}`, {
+    fetch(`http://localhost:5000/products?sellerEmail=${user?.email}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

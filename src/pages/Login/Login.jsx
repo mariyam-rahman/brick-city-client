@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-
+import Swal from "sweetalert2";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 
@@ -7,13 +7,25 @@ const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { signIn, user } = useContext(AuthContext);
-  const handleLogin = (event) => {
+  console.log({ location });
+  const handleLogin = async (event) => {
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
     console.log(email, password);
-    signIn(email, password);
+
+    try {
+      await signIn(email, password);
+      navigate(location.state?.redirectTo || "/", { state: location.state });
+      Swal.fire({
+        icon: "success",
+        title: "Login Successful",
+        text: "You have successfully logged in!",
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
@@ -75,11 +87,8 @@ const Login = () => {
                   />
                 </div>
 
-                <button
-                  type="submit"
-                  className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
-                  Login
+                <button type="submit" className="w-full btn ">
+                  LOGIN
                 </button>
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Don’t have an account yet?{" "}

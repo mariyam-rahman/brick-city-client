@@ -1,3 +1,34 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.btn {
+  background-color: #ffcf00 !important;
+  border: 2px solid #ffcf00 !important;
+  padding: 10px 30px !important;
+  border-radius: 8px !important;
+  text-align: center !important;
+  transition-duration: 0.4s !important;
+  font-size: 16px !important;
+  font-weight: 600;
+}
+.btn:hover {
+  border: 2px solid #ffcf00 !important;
+  background-color: #ffffff !important;
+  color: #ffcf00;
+}
+h2 {
+  font-size: 45px !important;
+  font-weight: 700;
+  background-image: conic-gradient(
+    #553c9a 30%,
+    #ee4b2b 40%,
+    #ee4b2b 70%,
+    #00c2cb 80%,
+    #553c9a
+  );
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  padding: 30px 0;
+}

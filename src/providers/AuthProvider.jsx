@@ -16,17 +16,18 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const createUser = async (name, email, password) => {
+  const createUser = async (name, email, password, photoUrl) => {
     setLoading(true);
-    console.log({ name, password, email });
+    console.log({ name, password, email, photoUrl });
     const res = await createUserWithEmailAndPassword(
       auth,
       email,
-      password
+      password,
+      photoUrl
     ).then(async (res) => {
       await updateProfile(auth.currentUser, {
         displayName: name,
-        // photoURL: photoUrl,
+        photoURL: photoUrl,
       });
       return res;
     });
@@ -58,14 +59,6 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    // const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-    //   setUser(currentUser);
-    //   setLoading(false);
-    //   console.log(currentUser);
-    // });
-    // return () => {
-    //   return unsubscribe();
-    // };
     try {
       const json = localStorage.getItem("user");
       if (json) {
