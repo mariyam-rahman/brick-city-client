@@ -13,11 +13,7 @@ const Header = () => {
   return (
     <Navbar fluid={true} rounded={true} className=" bg-[#ffffff] h-20 ">
       <Navbar.Brand onClick={() => navigate("/")} style={{ cursor: "pointer" }}>
-        <img
-          src="public/assets/logo.png"
-          className="mr-3 h-6 sm:h-10"
-          alt=" Logo"
-        />
+        <img src="/assets/logo.png" className="mr-3 h-6 sm:h-10" alt=" Logo" />
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
           Brick City
         </span>
