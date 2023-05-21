@@ -5,13 +5,13 @@ const Gallery = () => {
   const [pictures, setPictures] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/products?per_page=9")
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/products?per_page=9`)
       .then((res) => res.json())
       .then((data) => setPictures(data));
   }, []);
 
   return (
-    <div className="my-28 ">
+    <div className="my-28 bg-orange-50 md:px-32  sm:px-10 pb-12">
       <h2 className="text-4xl text-center py-20">Our Pictures</h2>
 
       <ResponsiveMasonry
@@ -20,7 +20,11 @@ const Gallery = () => {
       >
         <Masonry columnsCount={4}>
           {pictures.map((picture) => (
-            <div key={picture.id} className="border-2 border-amber-600 rounded">
+            <div
+              data-aos="zoom-in"
+              key={picture.id}
+              className="border-2 border-amber-600 rounded m-3 "
+            >
               <img
                 className="h-auto max-w-full rounded-lg"
                 src={picture.imageUrl}

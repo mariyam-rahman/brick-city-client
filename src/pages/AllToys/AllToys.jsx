@@ -4,9 +4,10 @@ import ToyItem from "./ToyItem";
 import Pagination from "./Pagination";
 import Filter from "./Filter";
 import Swal from "sweetalert2";
+import useTitle from "../../useTitle";
 const AllToys = () => {
   const [allToys, setAllToys] = useState([]);
-
+  useTitle("All Toys");
   const [searchText, setSearchText] = useState("");
   const [searchedToys, setSearchedToys] = useState(allToys);
   const [selectedOrder, setSelectedOrder] = useState(null);
@@ -15,7 +16,9 @@ const AllToys = () => {
 
   useEffect(() => {
     fetch(
-      `http://localhost:5000/products?order=${selectedOrder}&page=${currentPage}&per_page=${10}`,
+      `${
+        import.meta.env.VITE_API_BASE_URL
+      }/products?order=${selectedOrder}&page=${currentPage}&per_page=${10}`,
       {
         method: "GET",
         headers: {

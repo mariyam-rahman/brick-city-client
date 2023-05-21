@@ -6,8 +6,9 @@ import { AuthContext } from "../../providers/AuthProvider";
 const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { signIn, user } = useContext(AuthContext);
+  const { signIn, user, handleGoogleSignIn } = useContext(AuthContext);
   console.log({ location });
+
   const handleLogin = async (event) => {
     event.preventDefault();
     const form = event.target;
@@ -40,14 +41,7 @@ const Login = () => {
           <Link
             to="/"
             className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
-          >
-            <img
-              className="w-8 h-8 mr-2"
-              src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
-              alt="logo"
-            />
-            Flowbite
-          </Link>
+          ></Link>
           <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
@@ -86,26 +80,42 @@ const Login = () => {
                     required
                   />
                 </div>
-
                 <button type="submit" className="w-full btn ">
                   LOGIN
-                </button>
-                <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                  Don’t have an account yet?{" "}
-                  <button
-                    onClick={() => {
-                      // e.preventDefault();
-                      navigate("/register", {
-                        state: { redirectTo: location?.state?.redirectTo },
-                      });
-                    }}
-                  >
-                    <a className="font-medium text-primary-600 hover:underline dark:text-primary-500">
-                      Sign up
-                    </a>
-                  </button>
-                </p>
+                </button>{" "}
               </form>
+
+              <p className="text-center text-gray-400">
+                --------------------OR----------------------
+              </p>
+              <div className="text-center">
+                <button
+                  onClick={async () => {
+                    console.log(new Date());
+                    await handleGoogleSignIn().then();
+                    console.log(new Date());
+                    navigate(location.state?.redirectTo || "/");
+                  }}
+                  className="btn"
+                >
+                  Signin with Google
+                </button>
+              </div>
+              <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                Don’t have an account yet?{" "}
+                <button
+                  onClick={() => {
+                    // e.preventDefault();
+                    navigate("/register", {
+                      state: { redirectTo: location?.state?.redirectTo },
+                    });
+                  }}
+                >
+                  <a className="font-medium text-primary-600 hover:underline dark:text-primary-500">
+                    Sign up
+                  </a>
+                </button>
+              </p>
             </div>
           </div>
         </div>

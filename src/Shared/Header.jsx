@@ -1,8 +1,9 @@
-import { Button, Navbar } from "flowbite-react";
+import { Avatar, Button, Dropdown, Navbar } from "flowbite-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 import { useContext, useEffect } from "react";
 
+import { Tooltip } from "react-tooltip";
 const Header = () => {
   const navigate = useNavigate();
   const { signIn, user, logout } = useContext(AuthContext);
@@ -13,7 +14,7 @@ const Header = () => {
     <Navbar fluid={true} rounded={true} className=" bg-[#ffffff] h-20 ">
       <Navbar.Brand onClick={() => navigate("/")} style={{ cursor: "pointer" }}>
         <img
-          src="/public/assets/bg.png"
+          src="public/assets/logo.png"
           className="mr-3 h-6 sm:h-10"
           alt=" Logo"
         />
@@ -21,12 +22,51 @@ const Header = () => {
           Brick City
         </span>
       </Navbar.Brand>
+      <Tooltip id="my-tooltip" />
+
       <div className="flex md:order-2">
         {user ? (
           // <button onClick={logout} className="btn">
           //   Logout
           // </button>
-          "add code for user image and settings here"
+
+          <a
+            data-tooltip-id="my-tooltip"
+            data-tooltip-content={user?.displayName}
+          >
+            <Dropdown
+              className="block"
+              arrowIcon={false}
+              inline={true}
+              data-tooltip-id="my-tooltip"
+              data-tooltip-content="Hello world!"
+              label={
+                <Avatar
+                  alt="User settings"
+                  // img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                  onClick={(e) => {
+                    console.log(e);
+                  }}
+                  img={
+                    user && user.photoURL
+                      ? user.photoURL
+                      : "https://www.w3schools.com/howto/img_avatar.png"
+                  }
+                  rounded={true}
+                />
+              }
+            >
+              <Dropdown.Header>
+                <span className="block text-sm">{user?.displayName}</span>
+                <span className="block truncate text-sm font-medium">
+                  {user?.email}
+                </span>
+              </Dropdown.Header>
+
+              <Dropdown.Divider />
+              <Dropdown.Item onClick={logout}>Sign out</Dropdown.Item>
+            </Dropdown>
+          </a>
         ) : (
           <Link to={"/login"}>
             <button className="btn">Login </button>
@@ -34,6 +74,7 @@ const Header = () => {
         )}
         <Navbar.Toggle />
       </div>
+
       <Navbar.Collapse>
         <Link to={"/"}>
           <Navbar.Link active={location.pathname == "/"}>HOME</Navbar.Link>

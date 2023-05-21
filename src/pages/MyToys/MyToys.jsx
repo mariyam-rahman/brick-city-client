@@ -16,13 +16,16 @@ const MyToys = () => {
   const navigate = useNavigate();
 
   const updateProduct = async (id, updatedData) => {
-    const res = await fetch(`http://localhost:5000/product/${id}`, {
-      method: "PUT",
-      body: JSON.stringify(updatedData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetch(
+      `${import.meta.env.VITE_API_BASE_URL}/product/${id}`,
+      {
+        method: "PUT",
+        body: JSON.stringify(updatedData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     const data = await res.json();
     console.log(data);

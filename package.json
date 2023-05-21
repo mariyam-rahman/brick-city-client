@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",
+    "aos": "^2.3.4",
     "bootstrap-icons": "^1.10.5",
     "firebase": "^9.22.0",
     "flowbite": "^1.6.5",
@@ -21,6 +22,7 @@
     "react-dom": "^18.2.0",
     "react-responsive-masonry": "^2.1.7",
     "react-router-dom": "^6.11.2",
+    "react-tooltip": "^5.13.1",
     "sort-by": "^1.2.0",
     "sweetalert2": "^11.7.5"
   },

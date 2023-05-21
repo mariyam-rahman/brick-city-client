@@ -2,10 +2,11 @@ import { useContext, useEffect } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import useTitle from "../../useTitle";
 
 const AddToys = () => {
   const { user } = useContext(AuthContext);
-
+  useTitle("Add Toy");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,7 +40,7 @@ const AddToys = () => {
     };
     console.log({ toyForm });
 
-    fetch("http://localhost:5000/product", {
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/product`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

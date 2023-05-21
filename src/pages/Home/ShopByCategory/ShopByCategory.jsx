@@ -8,7 +8,7 @@ const ShopByCategory = () => {
   const [allCategories, setAllCategories] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/products`, {
+    fetch(`${import.meta.env.VITE_API_BASE_URL}/products`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -34,12 +34,12 @@ const ShopByCategory = () => {
         {allCategories.map((cat) => {
           return (
             <Tabs.Item key={cat} title={cat}>
-              <div className="grid-cols-3 grid gap-5">
+              <div className="md:grid-cols-4 grid gap-5">
                 {products
                   .filter((p) => p.category == cat)
                   .map((e) => (
                     <div className="flex-1 items-stretch">
-                      <ProductItem key={e.id} product={e} />
+                      <ProductItem key={e._id} product={e} />
                     </div>
                   ))}
               </div>

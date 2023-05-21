@@ -1,6 +1,9 @@
 import { Accordion } from "flowbite-react";
+import useTitle from "../../useTitle";
+import { Link } from "react-router-dom";
 
 const Blog = () => {
+  useTitle("Blog");
   return (
     <div className="m-20">
       <h2 className="text-6xl font-semibold text-center mb-14">FAQ</h2>
@@ -120,6 +123,11 @@ const Blog = () => {
           </Accordion.Content>
         </Accordion.Panel>
       </Accordion>
+      <div className="p-10">
+        <Link className="btn" to="/">
+          Back to Home
+        </Link>
+      </div>
     </div>
   );
 };

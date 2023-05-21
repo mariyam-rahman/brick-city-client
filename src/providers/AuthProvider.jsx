@@ -6,8 +6,11 @@ import {
   updateProfile,
   signInWithEmailAndPassword,
   signOut,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
 import app from "../firebase.config";
+import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext();
 const auth = getAuth(app);
@@ -15,6 +18,25 @@ const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const provider = new GoogleAuthProvider();
+
+  const handleGoogleSignIn = () => {
+    setLoading(true);
+    return signInWithPopup(auth, provider)
+      .then((res) => {
+        const user = res.user;
+        console.log("User signed in successfully.", user);
+
+        localStorage.setItem("user", JSON.stringify(res.user));
+        setUser(res.user);
+        setLoading(false);
+        return user;
+      })
+      .catch((error) => {
+        console.log("error", error.message);
+      });
+  };
 
   const createUser = async (name, email, password, photoUrl) => {
     setLoading(true);
@@ -33,7 +55,6 @@ const AuthProvider = ({ children }) => {
     });
 
     localStorage.setItem("user", JSON.stringify(res.user));
-
     setUser(res.user);
     setLoading(false);
   };
@@ -78,6 +99,7 @@ const AuthProvider = ({ children }) => {
     createUser,
     signIn,
     logout,
+    handleGoogleSignIn,
   };
 
   return (
